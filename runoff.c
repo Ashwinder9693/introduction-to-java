@@ -31,7 +31,16 @@ void eliminate(int min);
 int main(void)
 {
     // Get the number of candidates
-    candidate_count = get_int("Number of candidates: ");
+    do
+    {
+        candidate_count = get_int("Number of candidates: ");
+
+        if (candidate_count < 2)
+        {
+            printf("There must be at least 2 candidates. Please enter a valid number.\n");
+        }
+
+    } while (candidate_count < 2);
 
     // Allocate memory for candidates and preferences
     candidates = malloc(candidate_count * sizeof(Candidate));
@@ -41,7 +50,6 @@ int main(void)
         preferences[i] = malloc(candidate_count * sizeof(int));
     }
 
-    // Populate candidates array
     // Populate candidates array
     for (int i = 0; i < candidate_count; i++)
     {
