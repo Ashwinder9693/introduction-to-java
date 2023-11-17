@@ -98,7 +98,6 @@ int main(void)
     } while (voter_count < 1);
 
     // Get voter preferences
-    // Get voter preferences
     for (int i = 0; i < voter_count; i++)
     {
         printf("Rank preferences for voter %d:\n", i + 1);
