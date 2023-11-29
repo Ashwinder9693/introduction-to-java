@@ -1,0 +1,81 @@
+import java.util.Scanner;
+
+public class CipherText {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // User input for the plaintext
+        System.out.print("Enter the plaintext: ");
+        String plaintext = scanner.nextLine();
+
+        // User input for the key
+        System.out.print("Enter the key (non-negative integer): ");
+        int key = getNonNegativeInt(scanner);
+
+        // Encrypt the plaintext using Caesar's cipher
+        String ciphertext = encrypt(plaintext, key);
+
+        // Print the encrypted message
+        System.out.println("Ciphertext: " + ciphertext);
+
+        // Close the scanner
+        scanner.close();
+    }
+
+    // Function to ensure the user inputs a non-negative integer
+    private static int getNonNegativeInt(Scanner scanner) {
+        int key = -1; // Initialize key to an invalid value
+
+        while (key < 0) {
+            // Check if the next input is an integer
+            if (scanner.hasNextInt()) {
+                key = scanner.nextInt();
+
+                // Check if the key is non-negative
+                if (key < 0) {
+                    System.out.println("Invalid key. Key must be non-negative :");
+                }
+            } else {
+                // Consume the invalid input to avoid an infinite loop
+                System.out.println("Invalid input. Please enter a valid non-negative integer.");
+                scanner.next();
+            }
+        }
+
+        // Consume the newline character left by previous nextInt()
+        scanner.nextLine();
+
+        return key;
+    }
+
+    // Function to encrypt the plaintext using Caesar's cipher
+    private static String encrypt(String plaintext, int key) {
+        StringBuilder encryptedMessage = new StringBuilder();
+
+        // Iterate through each character in the input message
+        for (int i = 0; i < plaintext.length(); i++) {
+            char ch = plaintext.charAt(i);
+
+            // Check if the character is an alphabetical character
+            if (Character.isLetter(ch)) {
+                // Determine whether the character is uppercase or lowercase
+                char base = Character.isLowerCase(ch) ? 'a' : 'A';
+
+                // Encrypt the character using Caesar's cipher formula
+                ch = (char) ((ch - base + key) % 26 + base);
+            }
+
+            // Append the character to the encrypted message
+            encryptedMessage.append(ch);
+        }
+
+        return encryptedMessage.toString();
+    }
+}
+
+
+// Expected output
+// Enter the plaintext: My name is Ashwinder Singh
+// Enter the key (non-negative integer): 5
+// Ciphertext: Rd sfrj nx Fxmbnsijw Xnslm
